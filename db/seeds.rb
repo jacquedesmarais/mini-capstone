@@ -51,3 +51,12 @@ product = Product.new(
                       )
 
 product.save
+
+product = Product.new(
+                      name: "Anchovies",
+                      price: 2,
+                      image: "http://www.seriouseats.com/images/2015/07/20150706-anchovies-primary2.jpg",
+                      description: "delicious"
+                      )
+
+product.save
