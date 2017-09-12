@@ -1,9 +1,14 @@
 body {
-  background-image: url("http://www.seriouseats.com/recipes/assets_c/2017/02/20170216-detroit-style-pizza-43-thumb-1500xauto-436479.jpg");
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-image: url('cloudy-day.png');
   color: magenta;
   text-align: center;
 }
 
-h1 {
-  color: yellow;
+.red-price {
+  color: red;
+}
+
+.well img {
+  width: 100%;
 }

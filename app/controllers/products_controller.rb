@@ -3,6 +3,23 @@ class ProductsController < ApplicationController
   def index
     @title = "All Products"
     @products = Product.all
+
+    sort_attribute = params[:sort]
+    descending = params[:desc]
+    discount_item = params[:discount]
+    random_id = params[:id]
+    
+    if descending && descending == "true"
+      @products = @products.order(sort_attribute => :desc)
+    elsif sort_attribute
+      @products = @products.order(sort_attribute)
+    elsif discount_item
+      @products = @products.where("price < ?", 50)
+    elsif random_id
+      random_id = @products.ids.sample
+      product = Product.find(random_id)
+      redirect_to "/products/#{ product.id }"
+    end
   end
 
   def new

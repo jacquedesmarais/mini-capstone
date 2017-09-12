@@ -1,7 +1,6 @@
 <h1>New Product</h1>
 
 <%= form_tag '/products', method: :post do %>
-  
   <form>
   <div class="form-group">
     <label for="name">Name: </label>
@@ -19,20 +18,6 @@
     <label for="image">Description: </label>
     <input type="text" name="description">
   </div>
-  <button class="btn btn-success" type="submit" class="btn btn-default">Submit</button>
-</form>
-
-<!--   <div>
-    Name: <input type="text" name="name">
-  </div>
-  <div>
-    Price: <input type="text" name="price">
-  </div>
-  <div>
-    Image: <input type="text" name="image">
-  </div>
-  <div>
-    Description: <input type="text" name="description">
-  </div>
-  <input type="submit" name="Create Product"> -->
+    <button class="btn btn-success" type="submit" class="btn btn-default">Submit</button>
+  </form>
 <% end %>
