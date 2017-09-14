@@ -8,10 +8,16 @@
 
 <p class="<%= "red-price" if @product.discounted? %>">Price: <%= number_to_currency(@product.price)%></p>
 <p>Stock: <%= @product.stock %></p>
-<p>Tax: <%= number_to_currency(@product.tax)%>)</p>
+<p>Tax: <%= number_to_currency(@product.tax)%></p>
 <p>Total: <%= number_to_currency(@product.total)%></p>
-<center><img src="<%= @product.image %>" alt="<%= @product.name %>" class="img-responsive"></center>
+
+<% @product.images.each do |image| %>
+  <center><img src="<%= image.url %>" alt="<%= @product.name %>" class="img-responsive"></center><br>
+<% end %>
+
 <h4>Description: <%= @product.description %></h4>
 
 <%= link_to "Edit Animal", "/products/#{ @product.id }/edit", class: "btn btn-warning" %>
 <%= link_to "Delete Animal", "/products/#{ @product.id }", method: :delete, class: "btn btn-danger" %>
+
+<h6>Supplier: <%= @product.supplier.name %></h6>

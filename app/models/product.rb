@@ -1,5 +1,12 @@
 class Product < ApplicationRecord
 
+  # def supplier
+  #   Supplier.find_by(id: supplier_id)
+  # end
+
+  belongs_to :supplier
+  has_many :images
+
   def discounted?
     price < 50
   end
@@ -10,6 +17,14 @@ class Product < ApplicationRecord
 
   def total
     price + tax
+  end
+
+  def default_image
+    if images.count > 0
+      images.first.url
+    else
+      "http://cdn.decoist.com/wp-content/uploads/2013/03/Stylish-Fish-tank-all-about-creating-the-cool-blue-ocean-indoors.jpg"
+    end
   end
 
 end

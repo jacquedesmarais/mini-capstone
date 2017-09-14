@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
     descending = params[:desc]
     discount_item = params[:discount]
     random_id = params[:id]
+    search_term = params[:search_term]
     
     if descending && descending == "true"
       @products = @products.order(sort_attribute => :desc)
@@ -19,22 +20,30 @@ class ProductsController < ApplicationController
       random_id = @products.ids.sample
       product = Product.find(random_id)
       redirect_to "/products/#{ product.id }"
+    elsif search_term
+      @products = @products.where("name iLIKE ?", "%#{search_term}%")
     end
   end
 
   def new
-    
+    @suppliers = Supplier.all
   end
 
   def create
     product = Product.new(
                           name: params[:name],
                           price: params[:price],
-                          image: params[:image],
-                          description: params[:description]
+                          description: params[:description],
+                          supplier_id: params[:supplier_id]
                           )
-
     product.save
+
+    image = Image.new(
+                      product_id: params[:product_id],
+                      url: params[:url]
+                      )
+    image.save
+
     flash[:success] = "You added a #{ product.name } to the tank"
     redirect_to "/products/#{ product.id }" 
   end
@@ -54,11 +63,20 @@ class ProductsController < ApplicationController
     product.assign_attributes(
                               name: params[:name],
                               price: params[:price],
-                              image: params[:image],
-                              description: params[:description]
+                              description: params[:description],
                               )
 
     product.save
+
+    image = Image.find(params[:id])
+    
+    product.assign_attributes(
+                              product_id: params[:product_id],
+                              url: params[:url]
+                              )
+
+    product.save
+
     flash[:success] = "You edited your #{ product.name }. Be sure to say hi next time you visit."
     redirect_to "/products/#{ product.id }"
   end
