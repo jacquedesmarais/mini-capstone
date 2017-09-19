@@ -56,9 +56,15 @@
                 <li><a href="http://localhost:3000/?sort=price&desc=true">Price: Highest to Lowest</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="/signup">Sign Up</a></li>
-                <li><a href="/login">Sign In</a></li>
-                <li><a href="/logout">Logout</a></li>
+
+                <% if current_user %>
+                  <li><a href="/logout">Log Out</a></li>
+                <% else %>
+                  <li><a href="/signup">Sign Up</a></li>
+                  <li><a href="/login">Sign In</a></li>
+                <% end %>
+
+
               </ul>
             </li>
           </ul>

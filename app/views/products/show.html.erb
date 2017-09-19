@@ -20,4 +20,11 @@
 <%= link_to "Edit Animal", "/products/#{ @product.id }/edit", class: "btn btn-warning" %>
 <%= link_to "Delete Animal", "/products/#{ @product.id }", method: :delete, class: "btn btn-danger" %>
 
+<%= form_tag '/orders', method: :post do %>
+  <h4>Quantity: <input type="string" name="quantity"></h4><br>
+  <h4><input type="hidden" name="product_id" value= "<%= @product.id %>"></h4><br>
+  <button class="btn btn-success" type="submit" class="btn btn-default">Buy Now!</button>
+<% end %>
+
+
 <h6>Supplier: <%= @product.supplier.name %></h6>
