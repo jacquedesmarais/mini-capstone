@@ -6,7 +6,5 @@
 <h2>Total: <%= number_to_currency(@order.total) %> </h2>
 <h2>User Email: <%= current_user.email %> </h2>
 <h2>Product: <%= @order.product.name %> </h2>
-<h2>Ordered On: <%= @order.created_at %> </h2>
-
-
-
+<img src="<%= @order.product.images.first.url %>" alt="">
+<h2>Ordered On: <%= @order.created_at.strftime("%b %e, %l:%M %p") %> </h2>

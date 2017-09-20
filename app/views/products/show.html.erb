@@ -17,6 +17,11 @@
 
 <h4>Description: <%= @product.description %></h4>
 
+<h4>Categories :</h4>
+<% @product.categories.each do |category| %>
+  <p><%= category.name %></p>
+<% end %>
+
 <%= link_to "Edit Animal", "/products/#{ @product.id }/edit", class: "btn btn-warning" %>
 <%= link_to "Delete Animal", "/products/#{ @product.id }", method: :delete, class: "btn btn-danger" %>
 
