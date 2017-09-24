@@ -31,12 +31,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter By <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="http://localhost:3000/?category=1>">Small</a></li>
-                <li><a href="http://localhost:3000/?category=2>">Large</a></li>
-                <li><a href="http://localhost:3000/?category=3>">Slow</a></li>
-                <li><a href="http://localhost:3000/?category=4>">Fast</a></li>
-                <li><a href="http://localhost:3000/?category=5>">Bites</a></li>
-                <li><a href="http://localhost:3000/?category=6>">Doesn't Bite</a></li>
+
+              <% Category.all.each do |category| %>
+                <li><a href="/products?category=<%= category.name %>"><%= category.name %></a></li>
+              <% end %>
               </ul>
             </li>
           </ul>
@@ -47,14 +45,14 @@
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+<!--             <li><a href="#">Link</a></li>
+ -->            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sorting<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="http://localhost:3000/?sort=price">Price: Lowest to Highest</a></li>
                 <li><a href="http://localhost:3000/?sort=price&desc=true">Price: Highest to Lowest</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
+<!--                 <li><a href="#">Something else here</a></li>
+ -->                <li role="separator" class="divider"></li>
 
                 <% if current_user %>
                   <li><a href="/logout">Log Out</a></li>

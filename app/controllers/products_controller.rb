@@ -9,7 +9,12 @@ class ProductsController < ApplicationController
     discount_item = params[:discount]
     random_id = params[:id]
     search_term = params[:search_term]
-    category_id = params[:category]
+    category_attribute = params[:category]
+
+    if category_attribute
+      category = Category.find_by(name: category_attribute)
+      @products = category.products
+    end
     
     if descending && descending == "true"
       @products = @products.order(sort_attribute => :desc)
@@ -22,10 +27,7 @@ class ProductsController < ApplicationController
       product = Product.find(random_id)
       redirect_to "/products/#{ product.id }"
     elsif search_term
-      @products = @products.category.where("name iLIKE ?", "%#{search_term}%")
-    elsif category_id
-      category = Category.find_by(id: category_id)
-      @products = category.products
+      @products = @products.category.where("name iLIKE ?", "%#{ search_term }%")
     end
   end
 
