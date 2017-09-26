@@ -1,2 +1,0 @@
-class CartedProductsControllerController < ApplicationController
-end
