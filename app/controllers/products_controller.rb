@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
 
-  def index
+  before_action :authenticate_admin!, except: [:index, :show]
+
+  def index    
     @title = "All Products"
     @products = Product.all
 
@@ -29,6 +31,7 @@ class ProductsController < ApplicationController
     elsif search_term
       @products = @products.category.where("name iLIKE ?", "%#{ search_term }%")
     end
+    
   end
 
   def new

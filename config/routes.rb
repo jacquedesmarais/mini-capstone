@@ -8,17 +8,17 @@ Rails.application.routes.draw do
   patch '/products/:id' => 'products#update'
   delete '/products/:id' => 'products#destroy'
 
+  post '/orders' => 'orders#create'
+  get '/orders/:id' => 'orders#show'
+
+  get '/cart' => 'carted_products#index'
+  post '/carted_products' => 'carted_products#create'
+  delete '/carted_products/:id' => 'carted_products#destroy'
+
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-
-  post '/orders' => 'orders#create'
-  get '/orders/:id' => 'orders#show'
-
-  get '/cart/new' => 'carted_products#new'
-  post '/cart' => 'carted_products#create'
-  get '/checkout' => 'carted_products#index'
 end
