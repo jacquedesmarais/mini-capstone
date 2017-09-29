@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
-
-  before_action :authenticate_admin!, except: [:index, :show]
+  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
 
   def index    
     @title = "All Products"
@@ -36,25 +35,30 @@ class ProductsController < ApplicationController
 
   def new
     @suppliers = Supplier.all
+    @product = Product.new
   end
 
   def create
-    product = Product.new(
+    @product = Product.new(
                           name: params[:name],
                           price: params[:price],
                           description: params[:description],
                           supplier_id: params[:supplier_id]
                           )
-    product.save
+    if @product.save
+      flash[:success] = "You added a #{ product.name } to the tank"
+      redirect_to "/products/#{ @product.id }" 
+    else
+      @suppliers = Supplier.all
+      @errors = @product.errors.full_messages
+      render "new.html.erb"
+    end
 
     image = Image.new(
                       product_id: params[:product_id],
                       url: params[:url]
                       )
     image.save
-
-    flash[:success] = "You added a #{ product.name } to the tank"
-    redirect_to "/products/#{ product.id }" 
   end
 
   def show
@@ -67,27 +71,33 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find(params[:id])
     product = Product.find(params[:id])
 
-    product.assign_attributes(
+    @product.assign_attributes(
                               name: params[:name],
                               price: params[:price],
                               description: params[:description],
                               )
 
-    product.save
+    if @product.save
+      flash[:success] = "You edited your #{ @product.name }. Be sure to say hi next time you visit."
+      redirect_to "/products/#{ @product.id }"
+    else
+      @suppliers = Supplier.all
+      @errors = @product.errors.full_messages
+      render "edit.html.erb"
+    end
 
     image = Image.find(params[:id])
     
-    product.assign_attributes(
+    image.assign_attributes(
                               product_id: params[:product_id],
                               url: params[:url]
                               )
 
-    product.save
+    image.save
 
-    flash[:success] = "You edited your #{ product.name }. Be sure to say hi next time you visit."
-    redirect_to "/products/#{ product.id }"
   end
 
   def destroy
