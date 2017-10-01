@@ -43,14 +43,15 @@ class ProductsController < ApplicationController
                           name: params[:name],
                           price: params[:price],
                           description: params[:description],
-                          supplier_id: params[:supplier_id]
+                          supplier_id: params[:supplier_id],
+                          amount: params[:amount]
                           )
     if @product.save
       flash[:success] = "You added a #{ product.name } to the tank"
       redirect_to "/products/#{ @product.id }" 
     else
       @suppliers = Supplier.all
-      @errors = @product.errors.full_messages
+      # @errors = @product.errors.full_messages
       render "new.html.erb"
     end
 
@@ -68,6 +69,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @suppliers = Supplier.all
   end
 
   def update
@@ -78,6 +80,7 @@ class ProductsController < ApplicationController
                               name: params[:name],
                               price: params[:price],
                               description: params[:description],
+                              amount: params[:amount]
                               )
 
     if @product.save

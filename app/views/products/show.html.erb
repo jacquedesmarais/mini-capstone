@@ -7,7 +7,7 @@
 <% end %>
 
 <p class="<%= "red-price" if @product.discounted? %>">Price: <%= number_to_currency(@product.price)%></p>
-<p>Stock: <%= @product.stock %></p>
+<p>Stock: <%= @product.amount %></p>
 <p>Tax: <%= number_to_currency(@product.tax)%></p>
 <p>Total: <%= number_to_currency(@product.total)%></p>
 
